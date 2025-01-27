@@ -1,7 +1,6 @@
 public class Pookie {
     public static void main(String[] args) {
         greeting();
-        //System.out.println("Hello from\n" + logo);
     }
 
     public static void greeting() {
