@@ -1,10 +1,12 @@
 public class Task {
-    protected String taskDescription;
-    protected boolean isDone;
+    private String taskDescription;
+    private boolean isDone;
+    private String type;
 
-    public Task(String taskDescription) {
+    public Task(String taskDescription, String type) {
         this.taskDescription = taskDescription;
         this.isDone = false;
+        this.type = type;
     }
 
     public String getStatusIcon() {
@@ -15,7 +17,17 @@ public class Task {
         return taskDescription;
     }
 
+    public String getTaskType() {
+        return type;
+    }
+
     public void setIsDone(boolean state) {
         this.isDone = state;
+    }
+
+    public String getTaskInListFormat() {
+        return "[" + type + "]" +
+                "[" + this.getStatusIcon() + "] " +
+                taskDescription;
     }
 }
