@@ -1,7 +1,106 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
-
+	** ** ** ** ** Hello from ** ** ** ** **
+	__________              __   .__        
+	\______   \____   ____ |  | _|__| ____  
+	 |     ___/  _ \ /  _ \|  |/ /  |/ __ \ 
+	 |    |  (  <_> |  <_> )    <|  \  ___/ 
+	 |____|   \____/ \____/|__|_ \__|\___>
+	_________________________________________
+	Hello! I'm Pookie, your task tracker!
+	What can I do for you?
+	_________________________________________
+	added: borrow book
+		[1/100 tasks added]
+	_________________________________________
+	Here are all your tasks:
+	1. [T][ ] borrow book
+		[1/100 tasks added]
+	_________________________________________
+	added: return book by Sunday
+		[2/100 tasks added]
+	_________________________________________
+	Here are all your tasks:
+	1. [T][ ] borrow book
+	2. [D][ ] return book (by: Sunday)
+		[2/100 tasks added]
+	_________________________________________
+	added: project meeting from Mon 2pm to 4pm
+		[3/100 tasks added]
+	_________________________________________
+	Here are all your tasks:
+	1. [T][ ] borrow book
+	2. [D][ ] return book (by: Sunday)
+	3. [E][ ] project meeting (from: Mon 2pm || to: 4pm)
+		[3/100 tasks added]
+	_________________________________________
+	Great! I've marked this task as done:
+		[X] borrow book
+	_________________________________________
+	_________________________________________
+	Great! I've marked this task as done:
+		[X] return book
+	_________________________________________
+	_________________________________________
+	Great! I've marked this task as done:
+		[X] project meeting
+	_________________________________________
+	_________________________________________
+	Here are all your tasks:
+	1. [T][X] borrow book
+	2. [D][X] return book (by: Sunday)
+	3. [E][X] project meeting (from: Mon 2pm || to: 4pm)
+		[3/100 tasks added]
+	_________________________________________
+	OK, I've marked this task as not done:
+		[ ] borrow book
+	_________________________________________
+	_________________________________________
+	OK, I've marked this task as not done:
+		[ ] return book
+	_________________________________________
+	_________________________________________
+	OK, I've marked this task as not done:
+		[ ] project meeting
+	_________________________________________
+	_________________________________________
+	Here are all your tasks:
+	1. [T][ ] borrow book
+	2. [D][ ] return book (by: Sunday)
+	3. [E][ ] project meeting (from: Mon 2pm || to: 4pm)
+		[3/100 tasks added]
+	_________________________________________
+	I don't understand, please start with a command <3.
+	_________________________________________
+	Invalid command format!
+	Please specify task index.
+	Correct format: mark [index of task].
+	Here are all your tasks:
+	1. [T][ ] borrow book
+	2. [D][ ] return book (by: Sunday)
+	3. [E][ ] project meeting (from: Mon 2pm || to: 4pm)
+		[3/100 tasks added]
+	_________________________________________
+	You may try again!
+	_________________________________________
+	Invalid command format!
+	Index provided is out of bounds.
+	Correct format: mark [index of task].
+	Here are all your tasks:
+	1. [T][ ] borrow book
+	2. [D][ ] return book (by: Sunday)
+	3. [E][ ] project meeting (from: Mon 2pm || to: 4pm)
+		[3/100 tasks added]
+	_________________________________________
+	You may try again!
+	_________________________________________
+	Invalid command format!
+	Correct format: mark [index of task].
+	Here are all your tasks:
+	1. [T][ ] borrow book
+	2. [D][ ] return book (by: Sunday)
+	3. [E][ ] project meeting (from: Mon 2pm || to: 4pm)
+		[3/100 tasks added]
+	_________________________________________
+	You may try again!
+	_________________________________________
+	Bye bye, hope to see you again soon!
+	_________________________________________

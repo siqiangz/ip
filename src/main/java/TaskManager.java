@@ -101,7 +101,7 @@ public class TaskManager {
         } else {
             System.out.println("\tHere are all your tasks:");
             for (int i = 0; i < listSize; i++) {
-                System.out.println((i + 1) + ". " + taskList[i].getTaskInListFormat());
+                System.out.println("\t" + (i + 1) + ". " + taskList[i].getTaskInListFormat());
             }
             System.out.println("\t\t[" + listSize + "/100 tasks added]");
         }
