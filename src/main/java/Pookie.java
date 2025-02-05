@@ -35,6 +35,4 @@ public class Pookie {
             Parser.interpretLineInput(lineInput);
         }
     }
-
-
 }

@@ -14,11 +14,11 @@ public class TaskManager {
             Pookie.doLineBreak();
         } catch (NumberFormatException e){
             // Non numbers after "mark"
-            ErrorMessages.printInvalidMarkIndex();
+            ErrorHandler.printInvalidMarkIndex();
         } catch (ArrayIndexOutOfBoundsException e) {
             // Given index out of bounds of wordArray
             // Given index out of bounds of taskList
-            ErrorMessages.printOutOfBoundsMarkIndex(e);
+            ErrorHandler.printOutOfBoundsMarkIndex(e);
         }
         Pookie.doLineBreak();
     }

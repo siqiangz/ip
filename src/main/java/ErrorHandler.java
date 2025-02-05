@@ -1,4 +1,4 @@
-public class ErrorMessages {
+public class ErrorHandler {
 
     // Non numbers after "mark"
     public static void printInvalidMarkIndex() {
