@@ -5,11 +5,11 @@ public class TaskManager {
 
     public static void markTask(String[] wordArray, String lineInput, String mark) {
         try {
-            Task t = getTaskForMarking(wordArray);
+            Task task = getTaskForMarking(wordArray);
             if (mark.equals("mark")) {
-                setTaskAsDone(t);
+                setTaskAsDone(task);
             } else {
-                setTaskAsUndone(t);
+                setTaskAsUndone(task);
             }
             Pookie.doLineBreak();
         } catch (NumberFormatException e){
@@ -19,20 +19,21 @@ public class TaskManager {
             // Given index out of bounds of wordArray
             // Given index out of bounds of taskList
             ErrorHandler.printOutOfBoundsMarkIndex(e);
+        } finally {
+            Pookie.doLineBreak();
         }
-        Pookie.doLineBreak();
     }
 
-    private static void setTaskAsUndone(Task t) {
-        t.setIsDone(false);
+    private static void setTaskAsUndone(Task task) {
+        task.setIsDone(false);
         System.out.println("\tOK, I've marked this task as not done:");
-        System.out.println("\t\t[" + t.getStatusIcon() + "] " + t.getTaskDescription());
+        System.out.println("\t\t[" + task.getStatusIcon() + "] " + task.getTaskDescription());
     }
 
-    private static void setTaskAsDone(Task t) {
-        t.setIsDone(true);
+    private static void setTaskAsDone(Task task) {
+        task.setIsDone(true);
         System.out.println("\tGreat! I've marked this task as done:");
-        System.out.println("\t\t[" + t.getStatusIcon() + "] " + t.getTaskDescription());
+        System.out.println("\t\t[" + task.getStatusIcon() + "] " + task.getTaskDescription());
     }
 
     private static Task getTaskForMarking(String[] wordArray) {
@@ -46,18 +47,51 @@ public class TaskManager {
         if (taskListIndex < 1 || taskListIndex > listSize) {
             throw new ArrayIndexOutOfBoundsException("Index provided is out of bounds.");
         }
-        Task t = taskList[taskListIndex - 1];
-        return t;
+        return taskList[taskListIndex - 1];
     }
 
     public static void addNewTask(String[] wordArray) {
-        if (listSize >= 100) {
+        if (listSize >= MAX_LIST_SIZE) {
             System.out.println("\tTask list is already full!");
         } else {
-            String taskName = addTaskToList(wordArray);
-            printAddedTask(taskName);
+            if (isValidNewTask(wordArray)) {
+                String taskName = addTaskToList(wordArray);
+                printAddedTask(taskName);
+            }
         }
         Pookie.doLineBreak();
+    }
+
+    private static boolean isValidNewTask(String[] wordArray) {
+        // No task specified
+        if (wordArray.length <= 1) {
+            ErrorHandler.printNoNewTaskNameSpecified(wordArray[0]);
+            Pookie.doLineBreak();
+            return false;
+        }
+        // For command deadline
+        if (wordArray[0].equals("deadline")) {
+            try {
+                NewTaskChecker.checkDeadlineMissingKeyword(wordArray);
+                NewTaskChecker.checkIncompleteDeadlineEntry(wordArray);
+            } catch (InvalidNewTaskException e) {
+                ErrorHandler.printInvalidNewTaskEntry(e.getMessage(), "deadline");
+                Pookie.doLineBreak();
+                return false;
+            }
+        }
+        // For command event
+        if (wordArray[0].equals("event")) {
+            try {
+                NewTaskChecker.checkEventMissingKeyword(wordArray);
+                NewTaskChecker.checkIncompleteEventEntry(wordArray);
+            } catch (InvalidNewTaskException e) {
+                ErrorHandler.printInvalidNewTaskEntry(e.getMessage(), "event");
+                Pookie.doLineBreak();
+                return false;
+            }
+        }
+        return true;
     }
 
     private static String addTaskToList(String[] wordArray) {
@@ -69,26 +103,27 @@ public class TaskManager {
             return t.getTaskDescription();
         case "deadline":
             int indexOfBy = getIndexOfTimeline(wordArray, "by");
-            Deadline d = new Deadline(combineString(wordArray, 1, indexOfBy),
+            Deadline deadline = new Deadline(combineString(wordArray, 1, indexOfBy),
                     combineString(wordArray, indexOfBy + 1, wordArray.length));
-            taskList[listSize] = d;
+            taskList[listSize] = deadline;
             listSize++;
-            return d.getTaskDescription() + " by " + d.getBy();
+            return deadline.getTaskDescription() + " by " + deadline.getBy();
         // For case "event":
         default:
             int indexOfFrom = getIndexOfTimeline(wordArray, "from");
             int indexOfTo = getIndexOfTimeline(wordArray, "to");
-            Event e = new Event(combineString(wordArray, 1, indexOfFrom),
+            Event event = new Event(combineString(wordArray, 1, indexOfFrom),
                     combineString(wordArray, indexOfFrom + 1, indexOfTo),
                     combineString(wordArray, indexOfTo + 1, wordArray.length));
-            taskList[listSize] = e;
+            taskList[listSize] = event;
             listSize++;
-            return e.getTaskDescription() + " from " + e.getFrom() + " to " + e.getTo();
+            return event.getTaskDescription() + " from " + event.getFrom() + " to " + event.getTo();
         }
     }
 
-    private static int getIndexOfTimeline(String[] wordArray, String targetWord) {
-        int index = 1;
+    // Returns zero-based indexing
+    public static int getIndexOfTimeline(String[] wordArray, String targetWord) {
+        int index = 0;
         while (!wordArray[index].equals("/" + targetWord)) {
             index++;
         }
