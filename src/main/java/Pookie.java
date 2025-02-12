@@ -1,7 +1,7 @@
 import java.util.Scanner;
 
 public class Pookie {
-    private static boolean onOffSwitch = true;
+    private static boolean isPookieAwake = true;
 
     private static void greeting() {
         String logo = "\t__________              __   .__        \n"
@@ -18,7 +18,12 @@ public class Pookie {
 
     public static void goodbye() {
         System.out.println("\tBye bye, hope to see you again soon!");
-        onOffSwitch = false;
+        System.out.println("\t" + ColorAndStyles.RED + ",d88b.d88b," + ColorAndStyles.RESET);
+        System.out.println("\t" + ColorAndStyles.RED + "88888888888" + ColorAndStyles.RESET);
+        System.out.println("\t" + ColorAndStyles.RED + "`Y8888888Y'" + ColorAndStyles.RESET);
+        System.out.println("\t  " + ColorAndStyles.RED + "`Y888Y'" + ColorAndStyles.RESET);
+        System.out.println("\t    " + ColorAndStyles.RED + "`Y'" + ColorAndStyles.RESET);
+        isPookieAwake = false;
         doLineBreak();
     }
 
@@ -30,7 +35,7 @@ public class Pookie {
         final Scanner in = new Scanner(System.in);
         String lineInput;
         greeting();
-        while (onOffSwitch) {
+        while (isPookieAwake) {
             lineInput = in.nextLine();
             Parser.interpretLineInput(lineInput);
         }
