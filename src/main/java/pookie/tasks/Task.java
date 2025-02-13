@@ -1,3 +1,5 @@
+package pookie.tasks;
+
 public class Task {
     private String taskDescription;
     private boolean isDone;

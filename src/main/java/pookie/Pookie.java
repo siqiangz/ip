@@ -1,4 +1,8 @@
+package pookie;
+
 import java.util.Scanner;
+
+import pookie.customs.ColorAndStyles;
 
 public class Pookie {
     private static boolean isPookieAwake = true;

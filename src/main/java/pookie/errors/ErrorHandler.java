@@ -1,3 +1,7 @@
+package pookie.errors;
+
+import pookie.tasks.TaskManager;
+
 public class ErrorHandler {
 
     public static final String CORRECT_DEADLINE_FORMAT = "\tCorrect format: deadline {task name} /by {time specified}";

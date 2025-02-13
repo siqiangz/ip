@@ -1,3 +1,5 @@
+package pookie.customs;
+
 public class ColorAndStyles {
 
     // FONT COLORS
