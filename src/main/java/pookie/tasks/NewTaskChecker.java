@@ -1,5 +1,6 @@
-import java.lang.annotation.IncompleteAnnotationException;
-import java.util.HashMap;
+package pookie.tasks;
+
+import pookie.errors.InvalidNewTaskException;
 
 public class NewTaskChecker {
     // Checks whether new deadline command is missing /by keyword

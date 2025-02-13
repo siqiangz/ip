@@ -1,3 +1,9 @@
+package pookie.tasks;
+
+import pookie.errors.ErrorHandler;
+import pookie.errors.InvalidNewTaskException;
+import pookie.Pookie;
+
 public class TaskManager {
     private static int listSize = 0;
     private static final int MAX_LIST_SIZE = 100;
