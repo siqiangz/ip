@@ -9,6 +9,7 @@ public class ErrorHandler {
     public static final String CORRECT_TODO_FORMAT = "\tCorrect format: todo {task name}";
     public static final String INVALID_COMMAND_FORMAT = "\tInvalid command format!";
     public static final String CORRECT_MARK_UNMARK_FORMAT = "\tCorrect format: (un)mark {index of task}";
+    public static final String TRY_AGAIN = "\tTry again! ^_^";
 
     // For commands mark, unmark
     // Non numbers after command
@@ -16,7 +17,7 @@ public class ErrorHandler {
         System.out.println(INVALID_COMMAND_FORMAT);
         System.out.println(CORRECT_MARK_UNMARK_FORMAT);
         TaskManager.printList();
-        System.out.println("\tYou may try again!");
+        System.out.println(TRY_AGAIN);
     }
 
     // For commands mark, unmark
@@ -27,7 +28,7 @@ public class ErrorHandler {
         System.out.println("\t" + e.getMessage());
         System.out.println(CORRECT_MARK_UNMARK_FORMAT);
         TaskManager.printList();
-        System.out.println("\tYou may try again!");
+        System.out.println(TRY_AGAIN);
     }
 
     // For commands todo, deadline, event
