@@ -9,10 +9,8 @@ public class Parser {
 
         switch (wordArray[0]) {
         case "mark":
-            TaskManager.markTask(wordArray, lineInput, "mark");
-            break;
         case "unmark":
-            TaskManager.markTask(wordArray, lineInput, "unmark");
+            TaskManager.markTask(wordArray);
             break;
         case "bye":
         case "exit":
