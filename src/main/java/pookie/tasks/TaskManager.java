@@ -4,6 +4,9 @@ import pookie.errors.ErrorHandler;
 import pookie.errors.InvalidNewTaskException;
 import pookie.Pookie;
 import java.util.ArrayList;
+import static pookie.customs.ColorAndStyles.RED;
+import static pookie.customs.ColorAndStyles.GREEN;
+import static pookie.customs.ColorAndStyles.RESET;
 
 public class TaskManager {
     private static ArrayList<Task> taskList = new ArrayList<>();
@@ -12,51 +15,22 @@ public class TaskManager {
         return taskList.size();
     }
 
-    public static void markTask(String[] wordArray, String lineInput, String mark) {
-        try {
-            Task task = getTaskForMarking(wordArray);
-            if (mark.equals("mark")) {
-                setTaskAsDone(task);
+    public static void markTask(String[] wordArray) {
+        if (MarkTestChecker.isValidMarkTest(wordArray)) {
+            if (wordArray[0].equals("mark")) {
+                taskList.get(Integer.parseInt(wordArray[1]) - 1).setIsDone(true);
+                printMarkedTask(taskList.get(Integer.parseInt(wordArray[1]) - 1), GREEN + "DONE" + RESET);
             } else {
-                setTaskAsUndone(task);
+                taskList.get(Integer.parseInt(wordArray[1]) - 1).setIsDone(false);
+                printMarkedTask(taskList.get(Integer.parseInt(wordArray[1]) - 1), RED + "NOT DONE" + RESET);
             }
-            Pookie.doLineBreak();
-        } catch (NumberFormatException e){
-            // Non numbers after "mark"
-            ErrorHandler.printInvalidMarkIndex();
-        } catch (ArrayIndexOutOfBoundsException e) {
-            // Given index out of bounds of wordArray
-            // Given index out of bounds of taskList
-            ErrorHandler.printOutOfBoundsMarkIndex(e);
-        } finally {
-            Pookie.doLineBreak();
         }
+        Pookie.doLineBreak();
     }
 
-    private static void setTaskAsUndone(Task task) {
-        task.setIsDone(false);
-        System.out.println("\tOK, I've marked this task as not done:");
-        System.out.println("\t\t[" + task.getStatusIcon() + "] " + task.getTaskDescription());
-    }
-
-    private static void setTaskAsDone(Task task) {
-        task.setIsDone(true);
-        System.out.println("\tGreat! I've marked this task as done:");
-        System.out.println("\t\t[" + task.getStatusIcon() + "] " + task.getTaskDescription());
-    }
-
-    private static Task getTaskForMarking(String[] wordArray) {
-        // No index specified
-        if (wordArray.length != 2) {
-            throw new ArrayIndexOutOfBoundsException("Please specify task index.");
-        }
-        // Throws error if parsing non int type
-        int taskListIndex = Integer.parseInt(wordArray[1]);
-        // Index out of bounds
-        if (taskListIndex < 1 || taskListIndex > taskList.size()) {
-            throw new ArrayIndexOutOfBoundsException("Index provided is out of bounds.");
-        }
-        return taskList.get(taskListIndex - 1);
+    private static void printMarkedTask(Task markedTask, String markStatus) {
+        System.out.println("\tOK, I've marked this task as " + markStatus + " :");
+        System.out.println("\t\t[" + markedTask.getStatusIcon() + "] " + markedTask.getTaskDescription());
     }
 
     public static void addNewTask(String[] wordArray) {
