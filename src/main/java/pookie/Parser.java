@@ -26,6 +26,9 @@ public class Parser {
         case "event":
             TaskManager.addNewTask(wordArray);
             break;
+        case "delete":
+            TaskManager.deleteTask(wordArray);
+            break;
         default:
             System.out.println("\tI don't understand, please start with a command <3.");
             Pookie.doLineBreak();

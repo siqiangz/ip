@@ -3,11 +3,14 @@ package pookie.tasks;
 import pookie.errors.ErrorHandler;
 import pookie.errors.InvalidNewTaskException;
 import pookie.Pookie;
+import java.util.ArrayList;
 
 public class TaskManager {
-    private static int listSize = 0;
-    private static final int MAX_LIST_SIZE = 100;
-    private static Task[] taskList = new Task[MAX_LIST_SIZE];
+    private static ArrayList<Task> taskList = new ArrayList<>();
+
+    public static int getTaskListSize() {
+        return taskList.size();
+    }
 
     public static void markTask(String[] wordArray, String lineInput, String mark) {
         try {
@@ -44,26 +47,22 @@ public class TaskManager {
 
     private static Task getTaskForMarking(String[] wordArray) {
         // No index specified
-        if (wordArray.length <= 1) {
+        if (wordArray.length != 2) {
             throw new ArrayIndexOutOfBoundsException("Please specify task index.");
         }
         // Throws error if parsing non int type
         int taskListIndex = Integer.parseInt(wordArray[1]);
         // Index out of bounds
-        if (taskListIndex < 1 || taskListIndex > listSize) {
+        if (taskListIndex < 1 || taskListIndex > taskList.size()) {
             throw new ArrayIndexOutOfBoundsException("Index provided is out of bounds.");
         }
-        return taskList[taskListIndex - 1];
+        return taskList.get(taskListIndex - 1);
     }
 
     public static void addNewTask(String[] wordArray) {
-        if (listSize >= MAX_LIST_SIZE) {
-            System.out.println("\tTask list is already full!");
-        } else {
-            if (isValidNewTask(wordArray)) {
-                String taskName = addTaskToList(wordArray);
-                printAddedTask(taskName);
-            }
+        if (isValidNewTask(wordArray)) {
+            String taskName = addTaskToList(wordArray);
+            printAddedTask(taskName);
         }
         Pookie.doLineBreak();
     }
@@ -103,16 +102,14 @@ public class TaskManager {
     private static String addTaskToList(String[] wordArray) {
         switch (wordArray[0]) {
         case "todo":
-            Todo t = new Todo(combineString(wordArray, 1, wordArray.length));
-            taskList[listSize] = t;
-            listSize++;
-            return t.getTaskDescription();
+            Todo todo = new Todo(combineString(wordArray, 1, wordArray.length));
+            taskList.add(todo);
+            return todo.getTaskDescription();
         case "deadline":
             int indexOfBy = getIndexOfTimeline(wordArray, "by");
             Deadline deadline = new Deadline(combineString(wordArray, 1, indexOfBy),
                     combineString(wordArray, indexOfBy + 1, wordArray.length));
-            taskList[listSize] = deadline;
-            listSize++;
+            taskList.add(deadline);
             return deadline.getTaskDescription() + " by " + deadline.getBy();
         // For case "event":
         default:
@@ -121,10 +118,23 @@ public class TaskManager {
             Event event = new Event(combineString(wordArray, 1, indexOfFrom),
                     combineString(wordArray, indexOfFrom + 1, indexOfTo),
                     combineString(wordArray, indexOfTo + 1, wordArray.length));
-            taskList[listSize] = event;
-            listSize++;
+            taskList.add(event);
             return event.getTaskDescription() + " from " + event.getFrom() + " to " + event.getTo();
         }
+    }
+
+    public static void deleteTask(String[] wordArray) {
+        if (DeleteTaskChecker.isValidDeleteTask(wordArray)) {
+            Task deletedTask = taskList.remove(Integer.parseInt(wordArray[1]) - 1);
+            printDeletedTask(deletedTask);
+        }
+        Pookie.doLineBreak();
+    }
+
+    private static void printDeletedTask(Task deletedTask) {
+        System.out.println("\tGotcha! I have deleted this task:");
+        System.out.println("\t\t" + deletedTask.getTaskInListFormat());
+        System.out.println("\tYou have " + taskList.size() + " tasks left ^o^");
     }
 
     // Returns zero-based indexing
@@ -137,14 +147,14 @@ public class TaskManager {
     }
 
     public static void printList() {
-        if (listSize == 0) {
+        if (taskList.isEmpty()) {
             doEmptyListMessage();
         } else {
             System.out.println("\tHere are all your tasks:");
-            for (int i = 0; i < listSize; i++) {
-                System.out.println("\t" + (i + 1) + ". " + taskList[i].getTaskInListFormat());
+            for (int i = 0; i < taskList.size(); i++) {
+                System.out.println("\t" + (i + 1) + ". " + taskList.get(i).getTaskInListFormat());
             }
-            System.out.println("\t\t[" + listSize + "/100 tasks added]");
+            System.out.println("\t\t[" + taskList.size() + " tasks added]");
         }
         Pookie.doLineBreak();
     }
@@ -158,9 +168,9 @@ public class TaskManager {
         return sentence = sentence.trim();
     }
 
-    private static void printAddedTask(String description) {
-        System.out.println("\tadded: " + description);
-        System.out.println("\t\t[" + listSize + "/100 tasks added]");
+    private static void printAddedTask(String taskName) {
+        System.out.println("\tadded: " + taskName);
+        System.out.println("\t\t[" + taskList.size() + " tasks added]");
     }
 
     private static void doEmptyListMessage() {
