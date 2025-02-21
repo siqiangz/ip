@@ -62,4 +62,11 @@ public class ErrorHandler {
         TaskManager.printList();
         System.out.println(TRY_AGAIN);
     }
+
+    public static void printCannotAccessSaveFile(String message) {
+        System.out.println(message);
+        System.out.println(RED + "\tTrouble creating save file due to security! X.X" + RESET);
+        System.out.println(RED + "\tOr in the wrong working directory!" + RESET);
+        System.out.println("\tEnsure you are in project directory /CS2113iP");
+    }
 }

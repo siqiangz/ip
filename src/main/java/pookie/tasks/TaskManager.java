@@ -28,6 +28,10 @@ public class TaskManager {
         Pookie.doLineBreak();
     }
 
+    private static void markTask(boolean isDone) {
+        taskList.get(taskList.size() - 1).setIsDone(isDone);
+    }
+
     private static void printMarkedTask(Task markedTask, String markStatus) {
         System.out.println("\tOK, I've marked this task as " + markStatus + " :");
         System.out.println("\t\t[" + markedTask.getStatusIcon() + "] " + markedTask.getTaskDescription());
@@ -39,6 +43,11 @@ public class TaskManager {
             printAddedTask(taskName);
         }
         Pookie.doLineBreak();
+    }
+
+    public static void addNewTask(String[] wordArray, boolean isDone) {
+        addTaskToList(wordArray);
+        markTask(isDone);
     }
 
     private static boolean isValidNewTask(String[] wordArray) {

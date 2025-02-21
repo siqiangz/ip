@@ -2,7 +2,10 @@ package pookie;
 
 import java.util.Scanner;
 
-import pookie.customs.ColorAndStyles;
+import static pookie.customs.ColorAndStyles.RED;
+import static pookie.customs.ColorAndStyles.RESET;
+
+import pookie.files.FileManager;
 
 public class Pookie {
     private static boolean isPookieAwake = true;
@@ -22,11 +25,11 @@ public class Pookie {
 
     public static void goodbye() {
         System.out.println("\tBye bye, hope to see you again soon!");
-        System.out.println("\t" + ColorAndStyles.RED + ",d88b.d88b," + ColorAndStyles.RESET);
-        System.out.println("\t" + ColorAndStyles.RED + "88888888888" + ColorAndStyles.RESET);
-        System.out.println("\t" + ColorAndStyles.RED + "`Y8888888Y'" + ColorAndStyles.RESET);
-        System.out.println("\t  " + ColorAndStyles.RED + "`Y888Y'" + ColorAndStyles.RESET);
-        System.out.println("\t    " + ColorAndStyles.RED + "`Y'" + ColorAndStyles.RESET);
+        System.out.println("\t" + RED + ",d88b.d88b," + RESET);
+        System.out.println("\t" + RED + "88888888888" + RESET);
+        System.out.println("\t" + RED + "`Y8888888Y'" + RESET);
+        System.out.println("\t  " + RED + "`Y888Y'" + RESET);
+        System.out.println("\t    " + RED + "`Y'" + RESET);
         isPookieAwake = false;
         doLineBreak();
     }
@@ -36,6 +39,7 @@ public class Pookie {
     }
 
     public static void main(String[] args) {
+        FileManager.getSaveFileOnStartup();
         final Scanner in = new Scanner(System.in);
         String lineInput;
         greeting();

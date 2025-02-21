@@ -36,6 +36,6 @@ public class Parser {
 
     private static String[] separateInput(String sentence) {
         sentence = sentence.trim();
-        return sentence.split(" ");
+        return sentence.split("\\+s");
     }
 }
