@@ -32,4 +32,12 @@ public class Task {
                 "[" + this.getStatusIcon() + "] " +
                 taskDescription;
     }
+
+    protected String getIsDoneInSaveFormat() {
+        return (this.getStatusIcon().equals("X")) ? "/done" : "/undone";
+    }
+
+    public String getTaskInSaveFormat() {
+        return "";
+    }
 }

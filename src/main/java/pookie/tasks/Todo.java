@@ -9,4 +9,9 @@ public class Todo extends Task{
     public String getTaskInListFormat() {
         return super.getTaskInListFormat();
     }
+
+    // return {/done or /undone} todo {description}
+    public String getTaskInSaveFormat() {
+        return this.getIsDoneInSaveFormat() + " todo " + this.getTaskDescription();
+    }
 }

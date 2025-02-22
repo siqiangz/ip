@@ -1,5 +1,6 @@
 package pookie;
 
+import pookie.files.FileManager;
 import pookie.tasks.TaskManager;
 
 public class Parser {
@@ -14,6 +15,7 @@ public class Parser {
             break;
         case "bye":
         case "exit":
+            FileManager.updateSaveFileOnExit();
             Pookie.goodbye();
             break;
         case "list":

@@ -3,6 +3,7 @@ package pookie.tasks;
 import pookie.errors.ErrorHandler;
 import pookie.errors.InvalidNewTaskException;
 import pookie.Pookie;
+
 import java.util.ArrayList;
 import static pookie.customs.ColorAndStyles.RED;
 import static pookie.customs.ColorAndStyles.GREEN;
@@ -13,6 +14,10 @@ public class TaskManager {
 
     public static int getTaskListSize() {
         return taskList.size();
+    }
+
+    public static ArrayList<Task> getTaskList() {
+        return taskList;
     }
 
     public static void markTask(String[] wordArray) {
@@ -28,6 +33,10 @@ public class TaskManager {
         Pookie.doLineBreak();
     }
 
+    private static void markTask(boolean isDone) {
+        taskList.get(taskList.size() - 1).setIsDone(isDone);
+    }
+
     private static void printMarkedTask(Task markedTask, String markStatus) {
         System.out.println("\tOK, I've marked this task as " + markStatus + " :");
         System.out.println("\t\t[" + markedTask.getStatusIcon() + "] " + markedTask.getTaskDescription());
@@ -39,6 +48,11 @@ public class TaskManager {
             printAddedTask(taskName);
         }
         Pookie.doLineBreak();
+    }
+
+    public static void addNewTask(String[] wordArray, boolean isDone) {
+        addTaskToList(wordArray);
+        markTask(isDone);
     }
 
     private static boolean isValidNewTask(String[] wordArray) {
