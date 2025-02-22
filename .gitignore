@@ -18,3 +18,6 @@ text-ui-test/EXPECTED-UNIX.TXT
 
 # Class files
 *.class
+
+# Save files
+tasks.txt

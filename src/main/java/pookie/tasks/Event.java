@@ -23,4 +23,10 @@ public class Event extends Task{
                 " (from: " + from + " || " +
                 "to: " + to + ")";
     }
+
+    // return {/done or /undone} event {description} /from {time} /to {time}
+    public String getTaskInSaveFormat() {
+        return this.getIsDoneInSaveFormat() + " event " + this.getTaskDescription() + " /from " + this.getFrom() +
+                " /to " + this.getTo();
+    }
 }

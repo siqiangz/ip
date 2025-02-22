@@ -14,6 +14,7 @@ public class ErrorHandler {
     public static final String CORRECT_MARK_UNMARK_FORMAT = "\tCorrect format: mark/unmark {index of task}";
     public static final String TRY_AGAIN = "\tTry again! ^_^";
     public static final String CORRECT_DELETE_FORMAT = "\tCorrect format: delete {index of task}";
+    public static final String ENSURE_CORRECT_DIRECTORY = "\tEnsure you are in project directory /CS2113iP";
 
 
     // For commands mark, unmark
@@ -63,10 +64,16 @@ public class ErrorHandler {
         System.out.println(TRY_AGAIN);
     }
 
-    public static void printCannotAccessSaveFile(String message) {
+    public static void printCannotAccessSaveFileStartup(String message) {
         System.out.println(message);
-        System.out.println(RED + "\tTrouble creating save file due to security! X.X" + RESET);
+        System.out.println(RED + "\tTrouble creating save file due to security level! X.X" + RESET);
         System.out.println(RED + "\tOr in the wrong working directory!" + RESET);
-        System.out.println("\tEnsure you are in project directory /CS2113iP");
+        System.out.println(ENSURE_CORRECT_DIRECTORY);
+    }
+
+    public static void printCannotAccessSaveFileWrite(String message) {
+        System.out.println(message);
+        System.out.println(RED + "\tTrouble getting save file!" + RESET);
+        System.out.println(ENSURE_CORRECT_DIRECTORY);
     }
 }

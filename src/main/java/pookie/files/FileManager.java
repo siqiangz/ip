@@ -2,30 +2,30 @@ package pookie.files;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
 import pookie.errors.ErrorHandler;
+import pookie.tasks.Task;
 import pookie.tasks.TaskManager;
 
 public class FileManager {
 
     public static void getSaveFileOnStartup() {
-        File saveFile = new File("./savedata/tasks.txt");
+        File saveFile = new File("./tasks.txt");
         if (!saveFile.exists()) {
             try {
                 saveFile.createNewFile();
+                saveFile.setWritable(true);
+                saveFile.setReadable(true);
             } catch (IOException e) {
-                ErrorHandler.printCannotAccessSaveFile(e.getMessage());
+                ErrorHandler.printCannotAccessSaveFileStartup(e.getMessage());
             }
         }
-        saveFile.setWritable(true);
-        saveFile.setReadable(true);
-        //  populate taskList
-        // Print line saying loaded previous saves if any
         getTasksFromSaveFile(saveFile);
-
     }
 
     private static void getTasksFromSaveFile(File saveFile) {
@@ -34,20 +34,38 @@ public class FileManager {
             while (fileReader.hasNextLine()) {
                 importTasksToTaskList(fileReader.nextLine());
             }
+            fileReader.close();
         } catch (FileNotFoundException e) {
-            ErrorHandler.printCannotAccessSaveFile(e.getMessage());
+            ErrorHandler.printCannotAccessSaveFileStartup(e.getMessage());
         }
     }
 
     // Break up taskString into wordArray
-    // Format per line: event {description} /from {time} /to {time} {done/undone}
+    // Format per line: {done/undone} event {description} /from {time} /to {time}
     // call overloaded TaskManager.addNewTask, adding task to taskList and marking done if needed
     private static void importTasksToTaskList(String taskString) {
-        String[] wordArrayWithMark = taskString.split("\\s+");
-        String[] wordArray = Arrays.copyOf(wordArrayWithMark, wordArrayWithMark.length - 1);
-        boolean isDone = (wordArrayWithMark[wordArrayWithMark.length - 1].equals("/done"));
+        taskString = taskString.trim();
+        String[] wordArrayWithMark = taskString.split(" ");
+        String[] wordArray = Arrays.copyOfRange(wordArrayWithMark, 1, wordArrayWithMark.length);
+        boolean isDone = (wordArrayWithMark[0].equals("/done"));
 
         TaskManager.addNewTask(wordArray, isDone);
     }
 
+    public static void updateSaveFileOnExit() {
+        ArrayList<Task> taskArrayList = TaskManager.getTaskList();
+
+        try {
+            FileWriter writer = new FileWriter("./tasks.txt");
+            File file = new File("./tasks.txt");
+
+            for (Task task : taskArrayList) {
+                writer.write(task.getTaskInSaveFormat() + System.lineSeparator());
+            }
+
+            writer.close();
+        } catch (IOException e) {
+            ErrorHandler.printCannotAccessSaveFileWrite(e.getMessage());
+        }
+    }
 }

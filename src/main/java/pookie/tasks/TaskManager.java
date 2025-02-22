@@ -3,6 +3,7 @@ package pookie.tasks;
 import pookie.errors.ErrorHandler;
 import pookie.errors.InvalidNewTaskException;
 import pookie.Pookie;
+
 import java.util.ArrayList;
 import static pookie.customs.ColorAndStyles.RED;
 import static pookie.customs.ColorAndStyles.GREEN;
@@ -13,6 +14,10 @@ public class TaskManager {
 
     public static int getTaskListSize() {
         return taskList.size();
+    }
+
+    public static ArrayList<Task> getTaskList() {
+        return taskList;
     }
 
     public static void markTask(String[] wordArray) {
