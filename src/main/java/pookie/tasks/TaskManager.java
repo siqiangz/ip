@@ -1,6 +1,7 @@
 package pookie.tasks;
 
 import pookie.errors.ErrorHandler;
+import pookie.errors.InvalidDateTimeException;
 import pookie.errors.InvalidNewTaskException;
 import pookie.Pookie;
 
@@ -8,6 +9,7 @@ import java.util.ArrayList;
 import static pookie.customs.ColorAndStyles.RED;
 import static pookie.customs.ColorAndStyles.GREEN;
 import static pookie.customs.ColorAndStyles.RESET;
+import static pookie.tasks.Deadline.LIST_FORMAT;
 
 public class TaskManager {
     private static ArrayList<Task> taskList = new ArrayList<>();
@@ -44,15 +46,23 @@ public class TaskManager {
 
     public static void addNewTask(String[] wordArray) {
         if (isValidNewTask(wordArray)) {
-            String taskName = addTaskToList(wordArray);
-            printAddedTask(taskName);
+            try {
+                String taskName = addTaskToList(wordArray);
+                printAddedTask(taskName);
+            } catch (InvalidDateTimeException e) {
+                ErrorHandler.printInvalidDateTimeFormat(e.getMessage());
+            }
         }
         Pookie.doLineBreak();
     }
 
     public static void addNewTask(String[] wordArray, boolean isDone) {
-        addTaskToList(wordArray);
-        markTask(isDone);
+        try {
+            addTaskToList(wordArray);
+            markTask(isDone);
+        } catch (InvalidDateTimeException e) {
+            ErrorHandler.printInvalidDateTimeFormat(e.getMessage());
+        }
     }
 
     private static boolean isValidNewTask(String[] wordArray) {
@@ -67,6 +77,7 @@ public class TaskManager {
             try {
                 NewTaskChecker.checkDeadlineMissingKeyword(wordArray);
                 NewTaskChecker.checkIncompleteDeadlineEntry(wordArray);
+
             } catch (InvalidNewTaskException e) {
                 ErrorHandler.printInvalidNewTaskEntry(e.getMessage(), "deadline");
                 Pookie.doLineBreak();
@@ -87,7 +98,7 @@ public class TaskManager {
         return true;
     }
 
-    private static String addTaskToList(String[] wordArray) {
+    private static String addTaskToList(String[] wordArray) throws InvalidDateTimeException {
         switch (wordArray[0]) {
         case "todo":
             Todo todo = new Todo(combineString(wordArray, 1, wordArray.length));
@@ -98,7 +109,7 @@ public class TaskManager {
             Deadline deadline = new Deadline(combineString(wordArray, 1, indexOfBy),
                     combineString(wordArray, indexOfBy + 1, wordArray.length));
             taskList.add(deadline);
-            return deadline.getTaskDescription() + " by " + deadline.getBy();
+            return deadline.getTaskDescription() + " by " + deadline.getBy(LIST_FORMAT);
         // For case "event":
         default:
             int indexOfFrom = getIndexOfTimeline(wordArray, "from");
@@ -107,7 +118,7 @@ public class TaskManager {
                     combineString(wordArray, indexOfFrom + 1, indexOfTo),
                     combineString(wordArray, indexOfTo + 1, wordArray.length));
             taskList.add(event);
-            return event.getTaskDescription() + " from " + event.getFrom() + " to " + event.getTo();
+            return event.getTaskDescription() + " from " + event.getFrom(LIST_FORMAT) + " to " + event.getTo(LIST_FORMAT);
         }
     }
 

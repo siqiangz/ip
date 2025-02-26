@@ -15,6 +15,7 @@ public class ErrorHandler {
     public static final String TRY_AGAIN = "\tTry again! ^_^";
     public static final String CORRECT_DELETE_FORMAT = "\tCorrect format: delete {index of task}";
     public static final String ENSURE_CORRECT_DIRECTORY = "\tEnsure you are in project directory /CS2113iP";
+    public static final String CORRECT_DATE_TIME_FORMAT = "\tWhen entering date and times, use \" {dd-mm-yyyy hh:mm} \"";
 
 
     // For commands mark, unmark
@@ -75,5 +76,12 @@ public class ErrorHandler {
         System.out.println(message);
         System.out.println(RED + "\tTrouble getting save file!" + RESET);
         System.out.println(ENSURE_CORRECT_DIRECTORY);
+    }
+
+    public static void printInvalidDateTimeFormat(String message) {
+        System.out.println(INVALID_COMMAND_FORMAT);
+        System.out.println("\t" + message);
+        System.out.println(CORRECT_DATE_TIME_FORMAT);
+        System.out.println(TRY_AGAIN);
     }
 }
