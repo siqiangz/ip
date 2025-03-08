@@ -2,6 +2,7 @@ package pookie;
 
 import java.util.Scanner;
 
+import static pookie.customs.ColorAndStyles.PURPLE;
 import static pookie.customs.ColorAndStyles.RED;
 import static pookie.customs.ColorAndStyles.RESET;
 
@@ -24,7 +25,7 @@ public class Pookie {
     }
 
     public static void goodbye() {
-        System.out.println("\tBye bye, hope to see you again soon!");
+        System.out.println(PURPLE + "\tBye bye, hope to see you again soon!" + RESET);
         System.out.println("\t" + RED + ",d88b.d88b," + RESET);
         System.out.println("\t" + RED + "88888888888" + RESET);
         System.out.println("\t" + RED + "`Y8888888Y'" + RESET);

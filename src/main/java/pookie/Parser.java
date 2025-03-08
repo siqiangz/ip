@@ -29,6 +29,9 @@ public class Parser {
         case "delete":
             TaskManager.deleteTask(wordArray);
             break;
+        case "find":
+            TaskManager.findTask(wordArray);
+            break;
         default:
             System.out.println("\tI don't understand, please start with a command <3.");
             Pookie.doLineBreak();
@@ -38,6 +41,6 @@ public class Parser {
 
     private static String[] separateInput(String sentence) {
         sentence = sentence.trim();
-        return sentence.split(" ");
+        return sentence.split(" +");
     }
 }
