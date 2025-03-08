@@ -76,7 +76,7 @@ public class NewTaskChecker {
         }
     }
 
-    // Checks whether new event command is missing names or times
+    // Check whether new event command is missing names or times
     public static void checkIncompleteEventEntry(String[] wordArray) throws InvalidNewTaskException {
         int indexOfFrom = TaskManager.getIndexOfTimeline(wordArray, "from");
         int indexOfTo = TaskManager.getIndexOfTimeline(wordArray, "to");
