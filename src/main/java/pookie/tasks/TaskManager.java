@@ -6,9 +6,13 @@ import pookie.errors.InvalidNewTaskException;
 import pookie.Pookie;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+
+import static pookie.customs.ColorAndStyles.BLUE;
 import static pookie.customs.ColorAndStyles.RED;
 import static pookie.customs.ColorAndStyles.GREEN;
 import static pookie.customs.ColorAndStyles.RESET;
+import static pookie.customs.ColorAndStyles.YELLOW;
 import static pookie.tasks.Deadline.LIST_FORMAT;
 
 public class TaskManager {
@@ -20,6 +24,11 @@ public class TaskManager {
 
     public static ArrayList<Task> getTaskList() {
         return taskList;
+    }
+
+    public static void findTask(String[] wordArray) {
+        String[] wordsToFind = Arrays.copyOfRange(wordArray, 1, wordArray.length);
+        TaskFinder.findTasksWithKeywords(wordsToFind);
     }
 
     public static void markTask(String[] wordArray) {
@@ -149,11 +158,11 @@ public class TaskManager {
         if (taskList.isEmpty()) {
             doEmptyListMessage();
         } else {
-            System.out.println("\tHere are all your tasks:");
+            System.out.println(YELLOW + "\tHere are all your tasks:" + RESET);
             for (int i = 0; i < taskList.size(); i++) {
-                System.out.println("\t" + (i + 1) + ". " + taskList.get(i).getTaskInListFormat());
+                System.out.println("\t" + BLUE + (i + 1) + ". " + RESET + taskList.get(i).getTaskInListFormat());
             }
-            System.out.println("\t\t[" + taskList.size() + " tasks added]");
+            System.out.println(YELLOW + "\t\t[" + taskList.size() + " tasks added]" + RESET);
         }
         Pookie.doLineBreak();
     }
