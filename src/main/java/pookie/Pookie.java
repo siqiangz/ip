@@ -8,6 +8,11 @@ import static pookie.customs.ColorAndStyles.RESET;
 
 import pookie.files.FileManager;
 
+/**
+ * Pookie is a task tracker class where tasks can be added, deleted and marked.
+ * Tasks data is stored in a text file, and will be read from next time Pookie
+ * runs.
+ */
 public class Pookie {
     private static boolean isPookieAwake = true;
 
@@ -24,6 +29,9 @@ public class Pookie {
         doLineBreak();
     }
 
+    /**
+     * Prints a goodbye message and ends Pookie.
+     */
     public static void goodbye() {
         System.out.println(PURPLE + "\tBye bye, hope to see you again soon!" + RESET);
         System.out.println("\t" + RED + ",d88b.d88b," + RESET);

@@ -1,8 +1,11 @@
 package pookie.customs;
 
+/**
+ * ColorAndStyles class contains font colors
+ * for use when printing to command line.
+ */
 public class ColorAndStyles {
 
-    // FONT COLORS
     public static final String RESET = "\u001B[0m";
     public static final String BLACK = "\u001B[30m";
     public static final String RED = "\u001B[31m";
@@ -13,7 +16,6 @@ public class ColorAndStyles {
     public static final String CYAN = "\u001B[36m";
     public static final String WHITE = "\u001B[37m";
 
-    // BACKGROUND COLORS
     public static final String BG_BLACK = "\u001B[40m";
     public static final String BG_RED = "\u001B[41m";
     public static final String BG_GREEN = "\u001B[42m";

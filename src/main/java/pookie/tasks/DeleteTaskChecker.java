@@ -3,8 +3,17 @@ package pookie.tasks;
 import pookie.errors.ErrorHandler;
 import pookie.errors.InvalidDeleteTaskException;
 
+/**
+ * DeleteTaskChecker class checks whether delete commands are valid.
+ */
 public class DeleteTaskChecker {
 
+    /**
+     * Checks whether formatting of delete command is correct.
+     * Checks whether there is sufficient information for delete command.
+     * @param wordArray String[] contains full user input by word
+     * @return true if command format is proper, false otherwise
+     */
     public static boolean isValidDeleteTask(String[] wordArray) {
         try {
             checkBadIndexDeleteEntry(wordArray);

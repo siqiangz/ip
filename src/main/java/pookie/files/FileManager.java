@@ -12,8 +12,16 @@ import pookie.errors.ErrorHandler;
 import pookie.tasks.Task;
 import pookie.tasks.TaskManager;
 
+/**
+ * FileManager saves the state of tasks being tracked into a save file.
+ * Reads from a save file and repopulates the tracked tasks when Pookie runs again.
+ */
 public class FileManager {
 
+    /**
+     * Repopulates tracked tasks for Pookie in subsequent runs.
+     * Reads from a save file and adds each task, maintaining mark status from previous Pookie run.
+     */
     public static void getSaveFileOnStartup() {
         File saveFile = new File("./tasks.txt");
         if (!saveFile.exists()) {
@@ -40,9 +48,6 @@ public class FileManager {
         }
     }
 
-    // Break up taskString into wordArray
-    // Format per line: {done/undone} event {description} /from {time} /to {time}
-    // call overloaded TaskManager.addNewTask, adding task to taskList and marking done if needed
     private static void importTasksToTaskList(String taskString) {
         taskString = taskString.trim();
         String[] wordArrayWithMark = taskString.split(" ");
@@ -52,12 +57,15 @@ public class FileManager {
         TaskManager.addNewTask(wordArray, isDone);
     }
 
+    /**
+     * Writes save file when Pookie is closed.
+     * Creates a save file if one does not exist, otherwise rewrites the save file.
+     */
     public static void updateSaveFileOnExit() {
         ArrayList<Task> taskArrayList = TaskManager.getTaskList();
 
         try {
             FileWriter writer = new FileWriter("./tasks.txt");
-            File file = new File("./tasks.txt");
 
             for (Task task : taskArrayList) {
                 writer.write(task.getTaskInSaveFormat() + System.lineSeparator());

@@ -3,8 +3,18 @@ package pookie;
 import pookie.files.FileManager;
 import pookie.tasks.TaskManager;
 
+/**
+ * Parser class breaks down line inputs from the user and
+ * accesses necessary methods of other classes to
+ * execute commands.
+ */
 public class Parser {
 
+    /**
+     * Stores user's input into a String array.
+     * Calls necessary methods in other classes.
+     * @param lineInput String copy of user's input
+     */
     public static void interpretLineInput(String lineInput) {
         String[] wordArray = separateInput(lineInput);
 
