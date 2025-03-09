@@ -8,6 +8,9 @@ import static pookie.customs.ColorAndStyles.RESET;
 
 import pookie.tasks.TaskManager;
 
+/**
+ * ErrorHandler class manages unsuccessful processes of the task tracker.
+ */
 public class ErrorHandler {
 
     public static final String CORRECT_DEADLINE_FORMAT = BLUE + "\tCorrect format: deadline {task name} /by {time specified}" + RESET;
@@ -20,9 +23,10 @@ public class ErrorHandler {
     public static final String ENSURE_CORRECT_DIRECTORY = BLUE + "\tEnsure you are in project directory /CS2113iP" + RESET;
     public static final String CORRECT_DATE_TIME_FORMAT = BLUE + "\tWhen entering date and times, use \" {dd-mm-yyyy hh:mm} \"" + RESET;
 
-
-    // For commands mark, unmark
-    // Missing index, non-number index and out of bounds index
+    /**
+     * Prints a description of error and follow-up actions.
+     * @param errorDescription String message from unsuccessful mark and unmark process
+     */
     public static void printInvalidMarkEntry(String errorDescription) {
         System.out.println(INVALID_COMMAND_FORMAT);
         System.out.println(RED + "\t" + errorDescription + RESET);
@@ -31,8 +35,11 @@ public class ErrorHandler {
         System.out.println(TRY_AGAIN);
     }
 
-    // For commands todo, deadline, event
-    // Missing new task name
+    /**
+     * Prints a description of error when trying to add new task without a name.
+     * Prints follow-up actions depending on the type of new task.
+     * @param taskType String of the type of new task for adding task process
+     */
     public static void printNoNewTaskNameSpecified(String taskType) {
         System.out.println("\tGive your task a name!");
         if (taskType.equals("todo")) {
@@ -47,8 +54,13 @@ public class ErrorHandler {
         }
     }
 
-    // For command deadline, event
-    // Missing keywords, or parameters like name and time
+    /**
+     * Prints a description of error when trying to add new deadline and event
+     * without proper format.
+     * Prints follow-up actions depending on type of new task being added.
+     * @param errorDescription String message from unsuccessful deadline and event process
+     * @param taskType String type of new task being added
+     */
     public static void printInvalidNewTaskEntry(String errorDescription, String taskType) {
         System.out.println(RED + "\t" + errorDescription + RESET);
         if (taskType.equals("deadline")) {
@@ -58,8 +70,11 @@ public class ErrorHandler {
         }
     }
 
-    // For command delete
-    // Missing index, non-int index and out of bounds index
+    /**
+     * Prints description of error when trying to delete a task with improper indexing.
+     * Prints follow-up actions of proper use of delete command.
+     * @param errorDescription String message from unsuccessful delete process
+     */
     public static void printInvalidDeleteEntry(String errorDescription) {
         System.out.println(INVALID_COMMAND_FORMAT);
         System.out.println(RED + "\t" + errorDescription + RESET);
@@ -68,6 +83,11 @@ public class ErrorHandler {
         System.out.println(TRY_AGAIN);
     }
 
+    /**
+     * Prints description of error when trying to access save file at startup.
+     * Prints possible causes for error.
+     * @param message String message from unsuccessful access of save file at startup
+     */
     public static void printCannotAccessSaveFileStartup(String message) {
         System.out.println(message);
         System.out.println(RED + "\tTrouble creating save file due to security level! X.X" + RESET);
@@ -75,12 +95,22 @@ public class ErrorHandler {
         System.out.println(ENSURE_CORRECT_DIRECTORY);
     }
 
+    /**
+     * Prints description of error when trying to access save file at close.
+     * Prints possible causes for error.
+     * @param message String message from unsuccessful access of save file on close
+     */
     public static void printCannotAccessSaveFileWrite(String message) {
         System.out.println(message);
         System.out.println(RED + "\tTrouble getting save file!" + RESET);
         System.out.println(ENSURE_CORRECT_DIRECTORY);
     }
 
+    /**
+     * Prints description of error when user inputs improper time format in commands.
+     * Prints follow-up actions for proper time formatting.
+     * @param message String message from improper time format
+     */
     public static void printInvalidDateTimeFormat(String message) {
         System.out.println(INVALID_COMMAND_FORMAT);
         System.out.println(RED + "\t" + message + RESET);

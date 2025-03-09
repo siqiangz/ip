@@ -3,8 +3,17 @@ package pookie.tasks;
 import pookie.errors.ErrorHandler;
 import pookie.errors.InvalidMarkTaskException;
 
+/**
+ * MarkTestChecker class checks whether commands to mark tasks are valid.
+ */
 public class MarkTestChecker {
 
+    /**
+     * Checks whether formatting of mark, unmark command is proper.
+     * Checks whether there is sufficient information for mark, unmark command.
+     * @param wordArray String[] contains full user input by word
+     * @return true if command format is proper, false otherwise
+     */
     public static boolean isValidMarkTest(String[] wordArray) {
         try {
             checkBadIndexMarkEntry(wordArray);

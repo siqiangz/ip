@@ -1,5 +1,9 @@
 package pookie.tasks;
 
+/**
+ * Task class is a superclass for todo, deadline and event tasks.
+ * Contains
+ */
 public class Task {
     private String taskDescription;
     private boolean isDone;
@@ -17,10 +21,6 @@ public class Task {
 
     public String getTaskDescription() {
         return taskDescription;
-    }
-
-    public String getTaskType() {
-        return type;
     }
 
     public void setIsDone(boolean state) {

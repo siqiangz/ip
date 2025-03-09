@@ -8,8 +8,15 @@ import java.util.Arrays;
 import pookie.errors.InvalidDateTimeException;
 import pookie.errors.InvalidNewTaskException;
 
+/**
+ * NewTaskChecker class checks whether commands to add new tasks are valid.
+ */
 public class NewTaskChecker {
-    // Checks whether new deadline command is missing /by keyword
+    /**
+     * Checks if deadline command format is correct.
+     * @param wordArray String[] contains full user input by word
+     * @throws InvalidNewTaskException when /by keyword is missing from command
+     */
     public static void checkDeadlineMissingKeyword(String[] wordArray) throws InvalidNewTaskException {
         boolean isByPresent = false;
         for (String word : wordArray) {
@@ -24,7 +31,11 @@ public class NewTaskChecker {
         }
     }
 
-    // Checks whether new deadline command is missing names or times
+    /**
+     * Checks if deadline command has sufficient information.
+     * @param wordArray String[] contains full user input by word
+     * @throws InvalidNewTaskException when information is insufficient
+     */
     public static void checkIncompleteDeadlineEntry(String[] wordArray) throws InvalidNewTaskException {
         int indexOfBy = TaskManager.getIndexOfTimeline(wordArray, "by");
 
@@ -47,7 +58,11 @@ public class NewTaskChecker {
         }
     }
 
-    // Checks whether new event command is missing /from and /to keywords
+    /**
+     * Checks if event command format is correct.
+     * @param wordArray String[] contains full user input by word
+     * @throws InvalidNewTaskException when /from and /to is missing from command
+     */
     public static void checkEventMissingKeyword(String[] wordArray) throws InvalidNewTaskException{
         boolean isFromPresent = false;
         boolean isToPresent = false;
@@ -62,36 +77,34 @@ public class NewTaskChecker {
             }
         }
 
-        // Missing /from /to keywords in event command
         if (!isFromPresent && !isToPresent) {
             throw new InvalidNewTaskException("Event command is missing /from and /to keywords!");
         }
-        // Missing /from keyword in event command
         if (!isFromPresent) {
             throw new InvalidNewTaskException("Event command is missing /from keyword!");
         }
-        // Missing /to keyword in event command
         if (!isToPresent) {
             throw new InvalidNewTaskException("Event command is missing /to keyword!");
         }
     }
 
-    // Check whether new event command is missing names or times
+    /**
+     * Checks if event command has sufficient information.
+     * @param wordArray Checks if deadline command format is correct.
+     * @throws InvalidNewTaskException when information is insufficient
+     */
     public static void checkIncompleteEventEntry(String[] wordArray) throws InvalidNewTaskException {
         int indexOfFrom = TaskManager.getIndexOfTimeline(wordArray, "from");
         int indexOfTo = TaskManager.getIndexOfTimeline(wordArray, "to");
         boolean hasName = indexOfFrom >= 2;
         boolean hasTime = (indexOfTo - indexOfFrom) >= 2 && indexOfTo < wordArray.length - 1;
 
-        // Event command has no name and time
         if (!hasName && !hasTime) {
             throw new InvalidNewTaskException("Event has no name and set time!");
         }
-        // Event command has no name
         if (!hasName) {
             throw new InvalidNewTaskException("Event has no name!");
         }
-        // Event command has no time
         if (!hasTime) {
             throw new InvalidNewTaskException("Event has no proper time!");
         }

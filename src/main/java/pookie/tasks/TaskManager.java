@@ -15,6 +15,10 @@ import static pookie.customs.ColorAndStyles.RESET;
 import static pookie.customs.ColorAndStyles.YELLOW;
 import static pookie.tasks.Deadline.LIST_FORMAT;
 
+/**
+ * TaskManager class handles all commands that accesses or manipulates tasks.
+ * Handles add, delete, mark, unmark commands.
+ */
 public class TaskManager {
     private static ArrayList<Task> taskList = new ArrayList<>();
 
@@ -26,11 +30,19 @@ public class TaskManager {
         return taskList;
     }
 
+    /**
+     * Creates a String array of keywords for TaskFinder to use.
+     * @param wordArray String[] contains full user input by word
+     */
     public static void findTask(String[] wordArray) {
         String[] wordsToFind = Arrays.copyOfRange(wordArray, 1, wordArray.length);
         TaskFinder.findTasksWithKeywords(wordsToFind);
     }
 
+    /**
+     * Sets mark status of tasks.
+     * @param wordArray String[] contains full user input by word
+     */
     public static void markTask(String[] wordArray) {
         if (MarkTestChecker.isValidMarkTest(wordArray)) {
             if (wordArray[0].equals("mark")) {
@@ -53,6 +65,10 @@ public class TaskManager {
         System.out.println("\t\t[" + markedTask.getStatusIcon() + "] " + markedTask.getTaskDescription());
     }
 
+    /**
+     * Handles live user request to add a new task to track.
+     * @param wordArray String[] contains full user input by word
+     */
     public static void addNewTask(String[] wordArray) {
         if (isValidNewTask(wordArray)) {
             try {
@@ -65,6 +81,12 @@ public class TaskManager {
         Pookie.doLineBreak();
     }
 
+    /**
+     * Handles FileManager class request to add task from save file.
+     * Sets the mark status of tasks from save file.
+     * @param wordArray String[] contains full user input by word
+     * @param isDone boolean mark status of task
+     */
     public static void addNewTask(String[] wordArray, boolean isDone) {
         try {
             addTaskToList(wordArray);
@@ -75,13 +97,11 @@ public class TaskManager {
     }
 
     private static boolean isValidNewTask(String[] wordArray) {
-        // No task specified
         if (wordArray.length <= 1) {
             ErrorHandler.printNoNewTaskNameSpecified(wordArray[0]);
             Pookie.doLineBreak();
             return false;
         }
-        // For command deadline
         if (wordArray[0].equals("deadline")) {
             try {
                 NewTaskChecker.checkDeadlineMissingKeyword(wordArray);
@@ -93,7 +113,6 @@ public class TaskManager {
                 return false;
             }
         }
-        // For command event
         if (wordArray[0].equals("event")) {
             try {
                 NewTaskChecker.checkEventMissingKeyword(wordArray);
@@ -119,7 +138,6 @@ public class TaskManager {
                     combineString(wordArray, indexOfBy + 1, wordArray.length));
             taskList.add(deadline);
             return deadline.getTaskDescription() + " by " + deadline.getBy(LIST_FORMAT);
-        // For case "event":
         default:
             int indexOfFrom = getIndexOfTimeline(wordArray, "from");
             int indexOfTo = getIndexOfTimeline(wordArray, "to");
@@ -131,6 +149,10 @@ public class TaskManager {
         }
     }
 
+    /**
+     * Removes task from tracking.
+     * @param wordArray String[] contains full user input by word
+     */
     public static void deleteTask(String[] wordArray) {
         if (DeleteTaskChecker.isValidDeleteTask(wordArray)) {
             Task deletedTask = taskList.remove(Integer.parseInt(wordArray[1]) - 1);
@@ -145,7 +167,12 @@ public class TaskManager {
         System.out.println("\tYou have " + taskList.size() + " tasks left ^o^");
     }
 
-    // Returns zero-based indexing
+    /**
+     * Finds the position of command keywords for setting time in wordArray.
+     * @param wordArray String[] contains full user input by word
+     * @param targetWord String word to find
+     * @return index of targetWord in wordArray
+     */
     public static int getIndexOfTimeline(String[] wordArray, String targetWord) {
         int index = 0;
         while (!wordArray[index].equals("/" + targetWord)) {
@@ -154,6 +181,9 @@ public class TaskManager {
         return index;
     }
 
+    /**
+     * Prints all currently tracked tasks on user request.
+     */
     public static void printList() {
         if (taskList.isEmpty()) {
             doEmptyListMessage();
