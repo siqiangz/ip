@@ -15,8 +15,9 @@ Pookie is a task tracker with features such as marking and save files.
    
     Todo tasks do not contain specific deadlines. Give your todo a description.
 
-
-    todo do my homework
+```
+   todo do my homework
+```
 
 2. Adding **DEADLINE**
 
@@ -24,8 +25,9 @@ Pookie is a task tracker with features such as marking and save files.
 
     Take note of the format for /by. Use dd-mm-yyyy hh:mm
 
-
+```
     deadline do my homework /by 10-03-2025 03:00
+```
 
 3. Adding **EVENT**
 
@@ -33,8 +35,9 @@ Pookie is a task tracker with features such as marking and save files.
 
    Take note of the format for /from and /to. Use dd-mm-yyyy hh:mm
 
-
+```
     event do my homework /from 10-03-2025 13:00 /to 10-03-2025 23:00
+```
 
 4. **MARKING** and **UNMARKING** tasks
 
@@ -44,11 +47,12 @@ Pookie is a task tracker with features such as marking and save files.
 
     A marked task is given an X when listing tasks.
 
-
+```
     mark 1
-
-
+```
+```
     unmark 1
+```
 
 5. *DELETING* tasks
 
@@ -56,8 +60,9 @@ Pookie is a task tracker with features such as marking and save files.
 
     Give the command an index, corresponding to the targeted task when listing.
 
-
+```
     delete 1
+```
 
 6. **FINDING** tasks
 
@@ -69,9 +74,10 @@ Pookie is a task tracker with features such as marking and save files.
 
     them into individual words.
 
-
+```
     find book run sleep
-find command searches for tasks containing EITHER but not limited to: book, run, sleep
+```
+    find command searches for tasks containing EITHER but not limited to: book, run, sleep
 
 7. **LISTING** tasks
     
@@ -91,13 +97,14 @@ find command searches for tasks containing EITHER but not limited to: book, run,
 
 Example output
 
-
+```
     list
 	Here are all your tasks:
 	1. [T][X] chicken mcnugget
 	2. [D][ ] do my homework (by: Mar-10-2025 03:00 AM)
 	3. [E][ ] fly away (from: Apr-30-2025 12:00 AM || to: May-03-2025 12:00 AM)
 		[3 tasks added]
+```
 
 8. **EXITING** Pookie
     
@@ -105,9 +112,10 @@ Example output
 
     Pookie saves the state of the tracked tasks and writes to a save file upon exiting Pookie.
 
-
+```
     exit
-    
+```
+
 ## NOTES
 Save file is named tasks.txt
 tasks.txt is saved in the working directory where you run Pookie.
